@@ -45,6 +45,20 @@ $ docker-compose up -d
 Sokharev : Telegraf using docker prebuilt image but telegraf.conf used from this checkout thus we can configure telegraf without 
 rebuilding image
 
+### How to use 2:
+0. git checkout and cd to tig-stack folder 
+1. change telegraf/telegraf.template.conf 
+2. do git pull
+3. docker-compose down
+4. docker-compose up -d
+5. die.live.repeat 
+
+some help here 
+https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
+
+test it with : 
+echo "deploys.test.myservice:1|c" | nc -w 1 -u graphite.example.com 8125
+
 ## Ports
 Grafana: `3000`
 InfluxDB: `8083`, `8086`
