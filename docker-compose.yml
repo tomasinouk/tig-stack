@@ -57,5 +57,5 @@ telegraf:
     tty: true
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-        - ~/telegraf/telegraf.template.conf:/telegraf.template.conf
+        - ./telegraf/telegraf.template.conf:/telegraf.template.conf
     privileged: true
