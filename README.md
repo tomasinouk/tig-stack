@@ -42,6 +42,9 @@ $ docker-compose up -d
 `INFLUXDB_PORT` - InfluxDB Default Port. Default: `"8086"`  
 `DATABASE` - InfluxDB Database where telegraf stores data. Default: `"telegraf"`  
 
+Sokharev : Telegraf using docker prebuilt image but telegraf.conf used from this checkout thus we can configure telegraf without 
+rebuilding image
+
 ## Ports
 Grafana: `3000`
 InfluxDB: `8083`, `8086`
