@@ -51,7 +51,7 @@ rebuilding image
 2. do git pull
 3. docker-compose down
 4. docker-compose up -d
-5. die.live.repeat 
+5. live.die.repeat 
 
 some help here 
 https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
