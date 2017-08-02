@@ -47,7 +47,7 @@ rebuilding image
 
 ### How to use 2:
 0. git checkout and cd to tig-stack folder 
-1. change telegraf/telegraf.template.conf 
+1. change telegraf/telegraf.template.conf whatever you want ( or just leave unchanged )
 2. do git pull
 3. docker-compose down
 4. docker-compose up -d
