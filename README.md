@@ -1,7 +1,7 @@
 # Telegraf InfluxDB Grafana Stack
 
 ## What is inside TIG Stack
-* [Telegraf](https://hub.docker.com/r/matisq/telegraf/) - Gathers cpu,mem,net,docker data and sends it to InfluxDB
+* [Telegraf+Statsd](https://hub.docker.com/r/matisq/telegraf/) - Gathers cpu,mem,net,docker data and sends it to InfluxDB,statsd installed and 8125 udp port exposed
 * [InfluxDB](https://hub.docker.com/r/matisq/influxdb/) + volume data - Stores data from Telegraf
 * [Grafana](https://hub.docker.com/r/matisq/grafana/) + volume data - Includes one Dashboard (there will be more!) for docker monitoring.
 
