@@ -49,6 +49,7 @@ telegraf:
     image: matisq/telegraf:latest
     ports:
         - 8125:8125/udp
+        - 8092:8092/udp
     links:
         - influxdb:influxdb
     environment:
