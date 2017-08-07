@@ -43,6 +43,7 @@ influxdb:
         - influxdb-data
     volumes:
         - ./influxdb/influxdb.template.conf:/influxdb.template.conf
+        - ./collectd/types.db:/usr/share/collectd/types.db
 
 influxdb-data:
     image: busybox
