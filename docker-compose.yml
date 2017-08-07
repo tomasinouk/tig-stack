@@ -34,7 +34,7 @@ influxdb:
     ports:
         - 8083:8083
         - 8086:8086
-        - 25826:25826/udp
+        - 8089:8089/udp
     environment:
         INFLUX_DATABASE: "telegraf"
         INLFUX_ADMIN_USER: "grafana"
