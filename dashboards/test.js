@@ -51,39 +51,165 @@ if(!_.isUndefined(ARGS.name)) {
 
 for (var i = 0; i < rows; i++) {
 
-  dashboard.rows.push({
+  dashboard.rows.push(GetDash());
+}
+
+function GetDash(){
+return {
     title: 'Chart',
-    height: '300px',
+    height: '200px',
     panels: [
-      {
-        title: 'Events',
+	GetPanel( "battle " + i + ":5894860495094509"),GetPanel( "battle " + i + ":589abcfef43595955")
+    ]
+  };
+}
+
+function GetPanel(name)
+{
+return  {
+        title: name,
         type: 'graph',
-        span: 12,
+        span: 6,
         fill: 1,
         linewidth: 2,
         targets: [
+    {
+      "refId": "A",
+      "policy": "default",
+      "dsType": "influxdb",
+      "resultFormat": "time_series",
+      "orderByTime": "ASC",
+      "tags": [],
+      "groupBy": [
+        {
+          "type": "time",
+          "params": [
+            "$__interval"
+          ]
+        },
+        {
+          "type": "fill",
+          "params": [
+            "linear"
+          ]
+        }
+      ],
+      "select": [
+        [
           {
-            'target': "randomWalk('" + seriesName + "')"
+            "type": "field",
+            "params": [
+              "hp"
+            ]
           },
           {
-            'target': "randomWalk('random walk2')"
+            "type": "mean",
+            "params": []
           }
-        ],
-        seriesOverrides: [
+        ]
+      ],
+      "measurement": "clBattle",
+      "alias": "hp"
+    },
+    {
+      "refId": "B",
+      "policy": "default",
+      "dsType": "influxdb",
+      "resultFormat": "time_series",
+      "orderByTime": "ASC",
+      "tags": [],
+      "groupBy": [
+        {
+          "type": "time",
+          "params": [
+            "$__interval"
+          ]
+        },
+        {
+          "type": "fill",
+          "params": [
+            "linear"
+          ]
+        }
+      ],
+      "select": [
+        [
           {
-            alias: '/random/',
-            yaxis: 2,
-            fill: 0,
-            linewidth: 5
+            "type": "field",
+            "params": [
+              "ping"
+            ]
+          },
+          {
+            "type": "mean",
+            "params": []
           }
+        ]
+      ],
+      "measurement": "clBattle",
+      "alias": "ping"
+    },
+    {
+      "refId": "C",
+      "policy": "default",
+      "dsType": "influxdb",
+      "resultFormat": "time_series",
+      "orderByTime": "ASC",
+      "tags": [],
+      "groupBy": [
+        {
+          "type": "time",
+          "params": [
+            "$__interval"
+          ]
+        },
+        {
+          "type": "fill",
+          "params": [
+            "linear"
+          ]
+        }
+      ],
+      "select": [
+        [
+          {
+            "type": "field",
+            "params": [
+              "xpos"
+            ]
+          },
+          {
+            "type": "mean",
+            "params": []
+          }
+        ]
+      ],
+      "measurement": "clBattle",
+      "alias": "xpos"
+    }
         ],
+	description: "id:56865980494355",
+        datasource: "Docker InfluxDB",
+        seriesOverrides: [],
         tooltip: {
           shared: true
-        }
-      }
-    ]
-  });
-}
+        },
 
+  "legend": {
+    "show": true,
+    "values": true,
+    "min": true,
+    "max": true,
+    "current": false,
+    "total": false,
+    "avg": true,
+    "alignAsTable": true,
+    "rightSide": true,
+    "hideZero": false,
+    "hideEmpty": false
+  }
+
+      };
+}
 
 return dashboard;
