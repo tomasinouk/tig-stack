@@ -34,12 +34,15 @@ influxdb:
     ports:
         - 8083:8083
         - 8086:8086
+        - 25826:25826/udp
     environment:
         INFLUX_DATABASE: "telegraf"
         INLFUX_ADMIN_USER: "grafana"
         INFLUX_ADMIN_PASS: "grafana"
     volumes_from:
         - influxdb-data
+    volumes:
+        - ./influxdb/influxdb.template.conf:/influxdb.template.conf
 
 influxdb-data:
     image: busybox
