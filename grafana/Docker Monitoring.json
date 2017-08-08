@@ -1,4 +1,4 @@
-/*{
+{
   "__inputs": [
     {
       "name": "Docker InfluxDB",
@@ -1483,4 +1483,3 @@
   "links": [],
   "gnetId": null
 }
-*/
