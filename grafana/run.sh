@@ -92,7 +92,7 @@ then
    -H "Accept: application/json" \
    -H "Content-Type: application/json" \
    -X POST -d '{
-    "name":"'"${INFLUXDB_DATA_SOURCE}"'",
+    "name":"'"${INFLUXDB_DATA_SOURCE}-udp"'",
     "type":"influxdb",
     "url":"http://influxdb:8086",
     "access":"proxy",
