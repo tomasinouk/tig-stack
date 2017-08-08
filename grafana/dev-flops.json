@@ -1,4 +1,34 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_DOCKER_INFLUXDB-UDP",
+      "label": "Docker InfluxDB-udp",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "4.4.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
     "list": []
   },
@@ -6,7 +36,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 1,
+  "id": null,
   "links": [],
   "refresh": "5s",
   "rows": [
@@ -19,7 +49,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Docker InfluxDB-udp",
+          "datasource": "${DS_DOCKER_INFLUXDB-UDP}",
           "fill": 1,
           "id": 1,
           "legend": {
@@ -183,7 +213,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Docker InfluxDB-udp",
+          "datasource": "${DS_DOCKER_INFLUXDB-UDP}",
           "fill": 1,
           "id": 2,
           "legend": {
@@ -308,7 +338,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Docker InfluxDB-udp",
+          "datasource": "${DS_DOCKER_INFLUXDB-UDP}",
           "fill": 1,
           "id": 4,
           "legend": {
@@ -387,7 +417,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "network out (bytes/sec)",
+          "title": "network out ( bytes/sec )",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -437,7 +467,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Docker InfluxDB-udp",
+          "datasource": "${DS_DOCKER_INFLUXDB-UDP}",
           "fill": 1,
           "id": 5,
           "legend": {
@@ -516,7 +546,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "network in (bytes/sec)",
+          "title": "network in ( bytes/sec )",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -565,7 +595,7 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
