@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_DOCKER_INFLUXDB-UDP",
+      "name": "Docker InfluxDB-udp",
       "label": "Docker InfluxDB-udp",
       "description": "",
       "type": "datasource",
