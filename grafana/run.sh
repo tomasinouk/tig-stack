@@ -86,6 +86,23 @@ then
     "password":"grafana"}
   ' \
   http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@${GRAFANA_URL}:${GRAFANA_PORT}/api/datasources
+  
+  echo "Creating UDP datasource"
+  curl -L -i \
+   -H "Accept: application/json" \
+   -H "Content-Type: application/json" \
+   -X POST -d '{
+    "name":"'"${INFLUXDB_DATA_SOURCE}"'",
+    "type":"influxdb",
+    "url":"http://influxdb:8086",
+    "access":"proxy",
+    "basicAuth":false,
+    "database":"udp",
+    "user":"grafana",
+    "password":"grafana"}
+  ' \
+  http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@${GRAFANA_URL}:${GRAFANA_PORT}/api/datasources
+  
 else
   #Continue if it doesn't exists
   echo "Data Source '"${INFLUXDB_DATA_SOURCE}"' already exists."
