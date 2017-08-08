@@ -387,7 +387,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "network out (kb/sec)",
+          "title": "network out (bytes/sec)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -516,7 +516,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "network in (kb/sec)",
+          "title": "network in (bytes/sec)",
           "tooltip": {
             "shared": true,
             "sort": 0,
