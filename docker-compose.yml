@@ -19,6 +19,7 @@ grafana:
         - grafana-data
     volumes:
         - ./dashboards/test.js:/usr/share/grafana/public/dashboards/test.js
+        - ./grafana/run.sh:/run.sh
     restart: always
 
 grafana-data:
