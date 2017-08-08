@@ -49,7 +49,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DOCKER_INFLUXDB-UDP}",
+          "datasource": "Docker InfluxDB-udp",
           "fill": 1,
           "id": 1,
           "legend": {
@@ -213,7 +213,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DOCKER_INFLUXDB-UDP}",
+          "datasource": "Docker InfluxDB-udp",
           "fill": 1,
           "id": 2,
           "legend": {
@@ -338,7 +338,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DOCKER_INFLUXDB-UDP}",
+          "datasource": "Docker InfluxDB-udp",
           "fill": 1,
           "id": 4,
           "legend": {
@@ -467,7 +467,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DOCKER_INFLUXDB-UDP}",
+          "datasource": "Docker InfluxDB-udp",
           "fill": 1,
           "id": 5,
           "legend": {
