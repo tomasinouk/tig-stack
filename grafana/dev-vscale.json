@@ -95,7 +95,7 @@
               "measurement": "cpu",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT 100-mean(\"usage_idle\") FROM \"cpu\" WHERE  \"host\" = 'vm97180.local'  AND $timeFilter GROUP BY time($__interval) fill(linear)",
+              "query": "SELECT 100-mean(\"usage_idle\") FROM \"cpu\" WHERE  \"host\" = 'cs118414'  AND $timeFilter GROUP BY time($__interval) fill(linear)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -258,7 +258,7 @@
               "measurement": "mem",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"used\") FROM \"mem\" WHERE \"host\" = 'vm97180.local' AND $timeFilter GROUP BY time($__interval) fill(linear)",
+              "query": "SELECT mean(\"used\") FROM \"mem\" WHERE \"host\" = 'cs118414' AND $timeFilter GROUP BY time($__interval) fill(linear)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -280,7 +280,7 @@
                 {
                   "key": "host",
                   "operator": "=",
-                  "value": "vm97180.local"
+                  "value": "cs118414"
                 }
               ]
             }
@@ -409,7 +409,7 @@
                 {
                   "key": "host",
                   "operator": "=",
-                  "value": "vm97180.local"
+                  "value": "cs118414"
                 }
               ]
             }
@@ -538,7 +538,7 @@
                 {
                   "key": "host",
                   "operator": "=",
-                  "value": "vm97180.local"
+                  "value": "cs118414"
                 }
               ]
             }
