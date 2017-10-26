@@ -79,5 +79,6 @@ node-red:
     - "1880:1880"
   volumes:
     - ./data/node-red:/root/.node-red
+    - ./data/node-red/data:/data
   links:
     - influxdb:influxdb
