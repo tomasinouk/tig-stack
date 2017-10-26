@@ -71,3 +71,13 @@ telegraf:
         - /var/run/docker.sock:/var/run/docker.sock
         - ./telegraf/telegraf.template.conf:/telegraf.template.conf
     privileged: true
+    
+node-red:
+  image: openenergy/node-red
+  hostname: op-en-node-red
+  ports:
+    - "1880:1880"
+  volumes:
+    - ./data/node-red:/root/.node-red
+  links:
+    - influxdb:influxdb
