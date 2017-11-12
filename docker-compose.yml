@@ -94,4 +94,6 @@ services:
       depends_on:
         - grafana
         - node-red
+      volumes:
+        - ./nginx-reverseproxy/nginx.conf:/etc/nginx/nginx.conf
       restart: always
