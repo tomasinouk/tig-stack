@@ -4,6 +4,8 @@ grafana:
         - 3000:3000
     links:
         - influxdb:influxdb
+    depends_on:
+        - reverseproxy
     environment:
         #GF_INSTALL_PLUGINS: "abhisant-druid-datasource,alexanderzobnin-zabbix-app,bosun-app,bosun-datasource,briangann-gauge-panel,crate-datasource,digiapulssi-breadcrumb-panel,fastweb-openfalcon-datasource,fetzerch-sunandmoon-datasource,foursquare-clouderamanager-datasource,grafana-clock-panel,grafana-example-app,grafana-influxdb-08-datasource,grafana-kairosdb-datasource,grafana-piechart-panel,grafana-simple-json-datasource,grafana-worldmap-panel,gridprotectionalliance-openhistorian-datasource,gridprotectionalliance-osisoftpi-datasource,hawkular-datasource,jdbranham-diagram-panel,kentik-app,mtanda-heatmap-epoch-panel,mtanda-histogram-panel,ns1-app,opennms-datasource,percona-percona-app,praj-ams-datasource,rackerlabs-blueflood-datasource,raintank-snap-app,raintank-worldping-app,ryantxu-ajax-panel,savantly-heatmap-panel,sileht-gnocchi-datasource,sraoss-sunburst-panel,stagemonitor-elasticsearch-app,udoprog-heroic-datasource,voxter-app"
         GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-example-app,grafana-influxdb-08-datasource,grafana-piechart-panel,grafana-simple-json-datasource,grafana-worldmap-panel,jdbranham-diagram-panel,mtanda-heatmap-epoch-panel,mtanda-histogram-panel,ns1-app,percona-percona-app,ryantxu-ajax-panel,savantly-heatmap-panel"
@@ -47,6 +49,8 @@ influxdb:
     volumes:
         - ./influxdb/influxdb.template.conf:/influxdb.template.conf
         - ./collectd/types.db:/usr/share/collectd/types.db
+    depends_on:
+        - reverseproxy
 
 influxdb-data:
     image: busybox
@@ -75,6 +79,8 @@ telegraf:
 node-red:
   image: nodered/node-red-docker
   #hostname: op-en-node-red
+  depends_on:
+    - reverseproxy
   ports:
     - "1880:1880"
   volumes:
