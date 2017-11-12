@@ -84,7 +84,7 @@ node-red:
     - influxdb:influxdb
     
 reverseproxy:
-  image: reverseproxy
+  image: nginx-reverseproxy
   ports:
         - 80:80
         - 443:443
