@@ -82,3 +82,10 @@ node-red:
     - ./data/node-red/data:/data
   links:
     - influxdb:influxdb
+    
+reverseproxy:
+  image: reverseproxy
+  ports:
+        - 80:80
+        - 443:443
+  restart: always
