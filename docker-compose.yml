@@ -1,97 +1,100 @@
-grafana:
-    image: matisq/grafana:latest
-    ports: 
-        - 3000:3000
-    links:
-        - influxdb:influxdb
-    depends_on:
+version: '2'
+
+services:
+    grafana:
+        image: matisq/grafana:latest
+        ports: 
+            - 3000:3000
+        links:
+            - influxdb:influxdb
+        depends_on:
+            - reverseproxy
+        environment:
+            #GF_INSTALL_PLUGINS: "abhisant-druid-datasource,alexanderzobnin-zabbix-app,bosun-app,bosun-datasource,briangann-gauge-panel,crate-datasource,digiapulssi-breadcrumb-panel,fastweb-openfalcon-datasource,fetzerch-sunandmoon-datasource,foursquare-clouderamanager-datasource,grafana-clock-panel,grafana-example-app,grafana-influxdb-08-datasource,grafana-kairosdb-datasource,grafana-piechart-panel,grafana-simple-json-datasource,grafana-worldmap-panel,gridprotectionalliance-openhistorian-datasource,gridprotectionalliance-osisoftpi-datasource,hawkular-datasource,jdbranham-diagram-panel,kentik-app,mtanda-heatmap-epoch-panel,mtanda-histogram-panel,ns1-app,opennms-datasource,percona-percona-app,praj-ams-datasource,rackerlabs-blueflood-datasource,raintank-snap-app,raintank-worldping-app,ryantxu-ajax-panel,savantly-heatmap-panel,sileht-gnocchi-datasource,sraoss-sunburst-panel,stagemonitor-elasticsearch-app,udoprog-heroic-datasource,voxter-app"
+            GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-example-app,grafana-influxdb-08-datasource,grafana-piechart-panel,grafana-simple-json-datasource,grafana-worldmap-panel,jdbranham-diagram-panel,mtanda-heatmap-epoch-panel,mtanda-histogram-panel,ns1-app,percona-percona-app,ryantxu-ajax-panel,savantly-heatmap-panel"
+            GF_SECURITY_ADMIN_USER: admin
+            GF_SECURITY_ADMIN_PASSWORD: admin
+            GF_SECURITY_SECRET_KEY: grafana
+            GF_USERS_ALLOW_SIGN_UP: "true"
+            GF_USERS_ALLOW_ORG_CREATE: "true"
+            GF_AUTH_ANONYMOUS_ENABLED: "true"
+            GF_AUTH_ANONYMOUS_ORG_NAME: grafana
+            GF_DASHBOARDS_JSON_ENABLED: "true"
+            GF_DASHBOARDS_JSON_PATH: /opt/grafana
+        volumes_from:
+            - grafana-data
+        volumes:
+            - ./dashboards/test.js:/usr/share/grafana/public/dashboards/test.js
+            - ./grafana/run.sh:/run.sh
+            - ./grafana:/opt/grafana
+        restart: always
+
+    grafana-data:
+        image: busybox
+        tty: true
+        volumes:
+            - /var/lib/grafana
+            - /var/log/grafana
+            - /var/lib/grafana/plugins
+
+    influxdb:
+        image: matisq/influxdb:latest
+        ports:
+            - 8083:8083
+            - 8086:8086
+            - 8089:8089/udp
+        environment:
+            INFLUX_DATABASE: "telegraf"
+            INLFUX_ADMIN_USER: "grafana"
+            INFLUX_ADMIN_PASS: "grafana"
+        volumes_from:
+            - influxdb-data
+        volumes:
+            - ./influxdb/influxdb.template.conf:/influxdb.template.conf
+            - ./collectd/types.db:/usr/share/collectd/types.db
+        depends_on:
+            - reverseproxy
+
+    influxdb-data:
+        image: busybox
+        tty: true
+        volumes:
+            - /var/lib/influxdb
+
+    telegraf:
+        image: matisq/telegraf:latest
+        ports:
+            - 8125:8125/udp
+            - 8092:8092/udp
+        links:
+            - influxdb:influxdb
+        environment:
+            HOST_NAME: "telegraf"
+            INFLUXDB_HOST: "influxdb"
+            INFLUXDB_PORT: "8086"
+            DATABASE: "telegraf"
+        tty: true
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./telegraf/telegraf.template.conf:/telegraf.template.conf
+        privileged: true
+
+    node-red:
+      image: nodered/node-red-docker
+      #hostname: op-en-node-red
+      depends_on:
         - reverseproxy
-    environment:
-        #GF_INSTALL_PLUGINS: "abhisant-druid-datasource,alexanderzobnin-zabbix-app,bosun-app,bosun-datasource,briangann-gauge-panel,crate-datasource,digiapulssi-breadcrumb-panel,fastweb-openfalcon-datasource,fetzerch-sunandmoon-datasource,foursquare-clouderamanager-datasource,grafana-clock-panel,grafana-example-app,grafana-influxdb-08-datasource,grafana-kairosdb-datasource,grafana-piechart-panel,grafana-simple-json-datasource,grafana-worldmap-panel,gridprotectionalliance-openhistorian-datasource,gridprotectionalliance-osisoftpi-datasource,hawkular-datasource,jdbranham-diagram-panel,kentik-app,mtanda-heatmap-epoch-panel,mtanda-histogram-panel,ns1-app,opennms-datasource,percona-percona-app,praj-ams-datasource,rackerlabs-blueflood-datasource,raintank-snap-app,raintank-worldping-app,ryantxu-ajax-panel,savantly-heatmap-panel,sileht-gnocchi-datasource,sraoss-sunburst-panel,stagemonitor-elasticsearch-app,udoprog-heroic-datasource,voxter-app"
-        GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-example-app,grafana-influxdb-08-datasource,grafana-piechart-panel,grafana-simple-json-datasource,grafana-worldmap-panel,jdbranham-diagram-panel,mtanda-heatmap-epoch-panel,mtanda-histogram-panel,ns1-app,percona-percona-app,ryantxu-ajax-panel,savantly-heatmap-panel"
-        GF_SECURITY_ADMIN_USER: admin
-        GF_SECURITY_ADMIN_PASSWORD: admin
-        GF_SECURITY_SECRET_KEY: grafana
-        GF_USERS_ALLOW_SIGN_UP: "true"
-        GF_USERS_ALLOW_ORG_CREATE: "true"
-        GF_AUTH_ANONYMOUS_ENABLED: "true"
-        GF_AUTH_ANONYMOUS_ORG_NAME: grafana
-        GF_DASHBOARDS_JSON_ENABLED: "true"
-        GF_DASHBOARDS_JSON_PATH: /opt/grafana
-    volumes_from:
-        - grafana-data
-    volumes:
-        - ./dashboards/test.js:/usr/share/grafana/public/dashboards/test.js
-        - ./grafana/run.sh:/run.sh
-        - ./grafana:/opt/grafana
-    restart: always
-
-grafana-data:
-    image: busybox
-    tty: true
-    volumes:
-        - /var/lib/grafana
-        - /var/log/grafana
-        - /var/lib/grafana/plugins
-
-influxdb:
-    image: matisq/influxdb:latest
-    ports:
-        - 8083:8083
-        - 8086:8086
-        - 8089:8089/udp
-    environment:
-        INFLUX_DATABASE: "telegraf"
-        INLFUX_ADMIN_USER: "grafana"
-        INFLUX_ADMIN_PASS: "grafana"
-    volumes_from:
-        - influxdb-data
-    volumes:
-        - ./influxdb/influxdb.template.conf:/influxdb.template.conf
-        - ./collectd/types.db:/usr/share/collectd/types.db
-    depends_on:
-        - reverseproxy
-
-influxdb-data:
-    image: busybox
-    tty: true
-    volumes:
-        - /var/lib/influxdb
-
-telegraf:
-    image: matisq/telegraf:latest
-    ports:
-        - 8125:8125/udp
-        - 8092:8092/udp
-    links:
+      ports:
+        - "1880:1880"
+      volumes:
+        - ./data/node-red:/root/.node-red
+        - ./data/node-red/data:/data
+      links:
         - influxdb:influxdb
-    environment:
-        HOST_NAME: "telegraf"
-        INFLUXDB_HOST: "influxdb"
-        INFLUXDB_PORT: "8086"
-        DATABASE: "telegraf"
-    tty: true
-    volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - ./telegraf/telegraf.template.conf:/telegraf.template.conf
-    privileged: true
-    
-node-red:
-  image: nodered/node-red-docker
-  #hostname: op-en-node-red
-  depends_on:
-    - reverseproxy
-  ports:
-    - "1880:1880"
-  volumes:
-    - ./data/node-red:/root/.node-red
-    - ./data/node-red/data:/data
-  links:
-    - influxdb:influxdb
-    
-reverseproxy:
-  image: nginx-reverseproxy
-  ports:
-        - 80:80
-        - 443:443
-  restart: always
+
+    reverseproxy:
+      image: nginx-reverseproxy
+      ports:
+            - 80:80
+            - 443:443
+      restart: always
